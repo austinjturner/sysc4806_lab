@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <table>
+        <thead>
+        <tr>
+            <th> Name </th>
+            <th> Phonenumber </th>
+            <th> Address </th>
+            <th> Age </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${buddyInfos.isEmpty()}">
+            <td colspan="2"> You have no friends! </td>
+        </tr>
+        <tr th:each="buddy : ${buddyInfos}">
+            <td><span th:text="${buddy.getName()}"> Name </span></td>
+            <td><span th:text="${buddy.getPhonenumber()}"> Phonenumber </span></td>
+            <td><span th:text="${buddy.getAddress()}"> Address </span></td>
+            <td><span th:text="${buddy.getAge()}"> Age </span></td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>
