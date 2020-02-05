@@ -10,6 +10,7 @@ public class BuddyInfo {
     private String name, phonenumber, address;
     private int age;
     private long id;
+    private int ranking;
     private AddressBook addressBook;
 
     /**
@@ -62,11 +63,18 @@ public class BuddyInfo {
     public void setAddress(String address) {
         this.address = address;
     }
+    public int getRanking(){
+        return this.ranking;
+    }
+    public void setRanking(int ranking){
+        this.ranking = ranking;
+    }
 
-    public BuddyInfo(String name, String phonenumber, String address) {
+    public BuddyInfo(String name, String phonenumber, String address, int ranking) {
         this.name = name;
         this.phonenumber = phonenumber;
         this.address = address;
+        this.ranking = ranking;
     }
 
     public BuddyInfo() {
@@ -77,6 +85,7 @@ public class BuddyInfo {
         this.name = b.name;
         this.phonenumber = b.phonenumber;
         this.address = b.address;
+        this.ranking = b.ranking;
     }
 
     @Override
@@ -85,7 +94,8 @@ public class BuddyInfo {
             BuddyInfo b = (BuddyInfo) o;
             return (	this.name.equals(b.name) &&
                     this.address.equals(b.address) &&
-                    this.phonenumber.equals(b.phonenumber));
+                    this.phonenumber.equals(b.phonenumber) &&
+                    this.ranking == b.ranking);
 
         }
         return false;
@@ -93,7 +103,7 @@ public class BuddyInfo {
 
     @Override
     public String toString() {
-        return "Name: "+name+"     Phone Number: "+phonenumber+"     Address: "+address;
+        return "Name: "+name+"     Phone Number: "+phonenumber+"     Address: "+address + "    Ranking: "+ranking;
     }
 
     public String buddyGreeting() {

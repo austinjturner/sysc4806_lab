@@ -57,10 +57,10 @@ public class AddressBookControllerTest {
         mvc.perform(MockMvcRequestBuilders.post("/address-book/1/buddy")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"name\":\"Steve\",\"phonenumber\":\"12345\",\"address\":\"1 big street\",\"age\": 50}"))
+                .content("{\"name\":\"Steve\",\"phonenumber\":\"12345\",\"address\":\"1 big street\",\"age\": 50,\"ranking\":1}"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(equalTo(
-                        "{\"name\":\"Steve\",\"phonenumber\":\"12345\",\"address\":\"1 big street\",\"age\":50,\"id\":2,\"over18\":true}")));
+                        "{\"name\":\"Steve\",\"phonenumber\":\"12345\",\"address\":\"1 big street\",\"age\":50,\"id\":2,\"ranking\":1,\"over18\":true}")));
     }
 
     @Test
@@ -69,7 +69,7 @@ public class AddressBookControllerTest {
         mvc.perform(MockMvcRequestBuilders.get("/address-book/1").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().string(equalTo(
-                        "{\"id\":1,\"buddyInfos\":[{\"name\":\"Steve\",\"phonenumber\":\"12345\",\"address\":\"1 big street\",\"age\":50,\"id\":2,\"over18\":true}]}"
+                        "{\"id\":1,\"buddyInfos\":[{\"name\":\"Steve\",\"phonenumber\":\"12345\",\"address\":\"1 big street\",\"age\":50,\"id\":2,\"ranking\":1,\"over18\":true}]}"
                 )));
     }
 
