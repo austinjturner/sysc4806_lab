@@ -9,47 +9,27 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("/address-book")
-public class AddressBookController {
+public class AddresBookFormController {
 
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public class ResourceNotFoundException extends RuntimeException {
     }
 
     @Autowired
-	private AddressBookRepository addressBookRepo;
+    private AddressBookRepository addressBookRepo;
 
     @Autowired
     private BuddyInfoRepository buddyInfoRepo;
 
-	@PostMapping
-	public AddressBook addAddressBook() {
-		AddressBook newAddressBook = new AddressBook();
-        newAddressBook = addressBookRepo.save(newAddressBook);
-		return newAddressBook;
-	}
+    @PostMapping("/{id}/buddy2")
+    public BuddyInfo addBuddy(@PathVariable("id") Long id, @RequestParam Map<String, String> body ) {
 
-	@GetMapping
-    public Iterable<AddressBook> getAllAddressBooks() {
-	    return addressBookRepo.findAll();
-    }
-
-    @GetMapping("/{id}")
-    public AddressBook getAddressBookById(@PathVariable("id") Long id){
-	    Optional<AddressBook> oAddressBook = addressBookRepo.findById(id);
-	    if (oAddressBook.isPresent()){
-	        return oAddressBook.get();
-        } else {
-            throw new ResourceNotFoundException();
-        }
-    }
-
-    @PostMapping("/{id}/buddy")
-    public BuddyInfo addBuddy(@PathVariable("id") Long id, @RequestBody BuddyInfo buddyInfo) {
-
+        BuddyInfo buddyInfo = new BuddyInfo(body.get("name"), body.get("address"), body.get("phonenumber"), Integer.parseInt(body.get("ranking")));
         Optional<AddressBook> oAddressBook = addressBookRepo.findById(id);
         if (!oAddressBook.isPresent()){
             throw new ResourceNotFoundException();
@@ -61,13 +41,8 @@ public class AddressBookController {
 
         addressBookRepo.save(addressBook);
 
+        //return "addressBookSelect";
         return buddyInfo;
     }
 
-    @DeleteMapping("/{id}/buddy/{buddyId}")
-    public BuddyInfo removeBuddy(@PathVariable("id") Long id, @PathVariable("buddyId") Long buddyId) {
-	    buddyInfoRepo.deleteById(buddyId);
-
-        return null;
-    }
 }
